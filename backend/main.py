@@ -1,60 +1,29 @@
 from typing import List
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import pandas as pd
-
-# Função para carregar arquivo CSV
-def dados_csv():
-    
-    class Imovel(BaseModel):
-        tipo: str
-        bairro: str
-        quartos: int
-        valor: float
-        condominio: float
-        iptu: float
-
-
-    # Lendo o arquivo CSV e criando um DataFrame atribuindo-o a variável "imoveis"
-    imoveis = pd.read_csv('imoveis.csv', sep=',')
-
-    # Convertendo o DataFrame para uma lista de objetos Imovel
-    imoveis = [Imovel(**row) for row in imoveis.to_dict(orient='records')]
-    return imoveis
-
-# Função para carregar arquivo JSON
-def dados_json():
-    class Person(BaseModel):
-        id: int
-        name: str
-        age: int
-
-    # Carregando o arquivo JSON e atribuindo à variável df
-    df = pd.read_json('arquivo_dados.json')
-    
-    # Convertendo para classe Person e atribuindo à variável users
-    users = [Person(**row) for row in df.to_dict(orient='records')]
-    return users
+import json
 
 app = FastAPI()
 
-# Configurando CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+class Person(BaseModel):
+    id: int
+    name: str
+    age: int
 
-# Definindo rota para mostrar os resultados da função dados_csv
-@app.get("/mostrar_dados_csv")
-def mostrar_dados_csv():
-    return dados_csv()
+DB: List[Person] = [
+    Person(id=1, name="Renato", age=30),
+    Person(id=2, name="Thiago", age=29),
+    Person(id=3, name='Maria', age=32)
+]
 
-# Definindo rota para mostrar os resultados da função dados_json
-@app.get("/mostrar_dados_json")
+@app.get("/api01")
+def read_root():
+    return DB
+
+# Definindo rota para mostrar os dados json
+@app.get("/api02")
 def mostrar_dados_json():
-    return dados_json()
+    with open("arquivo_dados.json", "r") as file:
+        data = json.load(file)
+    return data
 
