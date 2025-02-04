@@ -1,4 +1,4 @@
-#!/home/wellington/Bulk_Consulting/Estudos/Projeto_fullstack2.0/backend/venv/bin/python3
+#!/home/wellington/Bulk_Consulting/Estudos/Projeto_fullstack2.0/backend/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

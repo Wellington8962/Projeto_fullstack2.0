@@ -1,91 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import './App.css'; 
+import './App.css';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-const App = () => {
-  const [csvData, setCsvData] = useState([]);
-  const [jsonData, setJsonData] = useState([]);
+function App() {
+  const [peopleApi01, setPeopleApi01] = useState([]); // Estado para /api01
+  const [peopleApi02, setPeopleApi02] = useState([]); // Estado para /api02
 
   useEffect(() => {
-    // Função para buscar dados CSV
-    const fetchCsvData = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/mostrar_dados_csv');
-        const data = await response.json();
-        setCsvData(data);
-      } catch (error) {
-        console.error('Erro ao buscar dados CSV:', error);
-      }
-    };
+    // Buscar dados de /api01
+    axios
+      .get('/api01')
+      .then((res) => setPeopleApi01(res.data))
+      .catch((error) => console.error('Erro ao buscar dados da API01:', error));
 
-    // Função para buscar dados JSON
-    const fetchJsonData = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/mostrar_dados_json');
-        const data = await response.json();
-        setJsonData(data);
-      } catch (error) {
-        console.error('Erro ao buscar dados JSON:', error);
-      }
-    };
-
-    fetchCsvData();
-    fetchJsonData();
+    // Buscar dados de /api02
+    axios
+      .get('/api02')
+      .then((res) => setPeopleApi02(res.data))
+      .catch((error) => console.error('Erro ao buscar dados da API02:', error));
   }, []);
 
   return (
-    <div className="container">
-      <div className="table-container">
-        <h2>Dados CSV</h2>
-        <table className="custom-table">
+    <div className="App" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ textAlign: 'center' }}>Dados das APIs</h1>
+
+      <div style={{ margin: '20px 0' }}>
+        <h2>Dados da API01</h2>
+        <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr>
-              <th>Tipo</th>
-              <th>Bairro</th>
-              <th>Quartos</th>
-              <th>Valor</th>
-              <th>Condomínio</th>
-              <th>IPTU</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>ID</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>Nome</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>Idade</th>
             </tr>
           </thead>
           <tbody>
-            {csvData.map((row, index) => (
+            {peopleApi01.map((person, index) => (
               <tr key={index}>
-                <td>{row.tipo}</td>
-                <td>{row.bairro}</td>
-                <td>{row.quartos}</td>
-                <td>{row.valor}</td>
-                <td>{row.condominio}</td>
-                <td>{row.iptu}</td>
+                <td style={{ padding: '8px' }}>{person.id}</td>
+                <td style={{ padding: '8px' }}>{person.name}</td>
+                <td style={{ padding: '8px' }}>{person.age}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-  
-      <div className="table-container">
-        <h2>Dados JSON</h2>
-        <table className="custom-table">
+
+      <div>
+        <h2>Dados da API02</h2>
+        <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Idade</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>ID</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>Nome</th>
+              <th style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>Idade</th>
             </tr>
           </thead>
           <tbody>
-            {jsonData.map((person, index) => (
+            {peopleApi02.map((person, index) => (
               <tr key={index}>
-                <td>{person.id}</td>
-                <td>{person.name}</td>
-                <td>{person.age}</td>
+                <td style={{ padding: '8px' }}>{person.id}</td>
+                <td style={{ padding: '8px' }}>{person.name}</td>
+                <td style={{ padding: '8px' }}>{person.age}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>  
+    </div>
   );
-  
-};
+}
 
 export default App;
