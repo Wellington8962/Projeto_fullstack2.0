@@ -49,8 +49,6 @@ Certifique-se de ter os seguintes itens instalados:
 2. Crie um ambiente virtual:
    ```bash
    python3 -m venv venv
-   # ou, se preferir:
-   virtualenv venv
    ```
 
 3. Ative o ambiente virtual:
