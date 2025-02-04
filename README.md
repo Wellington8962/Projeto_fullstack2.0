@@ -105,3 +105,24 @@ O backend estará disponível em [http://localhost:8000](http://localhost:8000).
    ```
 
 O frontend estará disponível em [http://localhost:3000](http://localhost:3000).
+
+---
+
+### Docker
+
+#### Criar e Conectar à Rede Docker
+
+1. Crie a rede Docker chamada `fullstack`:
+   ```bash
+   docker network create fullstack
+   ```
+
+2. Inicie o contêiner do backend e conecte-o à rede:
+   ```bash
+   docker run --name backend_atividade --rm --network fullstack -p 8000:8000 backend_atividade
+   ```
+
+3. Inicie o contêiner do frontend e conecte-o à mesma rede:
+   ```bash
+   docker run --name frontend_atividade --rm --network fullstack -p 3000:3000 frontend_atividade
+   ```
