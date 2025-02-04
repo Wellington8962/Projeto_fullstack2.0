@@ -14,7 +14,7 @@ O projeto está dividido em dois diretórios principais:
 ## Tecnologias Utilizadas
 
 ### Backend
-- **Python** 3.9
+- **Python** 3.10
 - **FastAPI**
 - **Uvicorn**
 - **Docker**
@@ -30,10 +30,34 @@ O projeto está dividido em dois diretórios principais:
 
 ### Pré-requisitos
 Certifique-se de ter os seguintes itens instalados:
+- **Python** 3.9 ou superior
+- **Node.js** e **npm**
 - **Docker** e **Docker Compose**
 - Git
 
-### 1️⃣ Clonar o Repositório
-```bash
-git clone https://github.com/Wellington8962/Projeto_fullstack2.0.git
-cd Projeto_fullstack2.0
+---
+
+### Backend
+
+#### Configuração Local no Backend
+
+1. Entre no diretório do backend:
+   ```bash
+   cd backend
+
+2. Crie um ambiente virtual:
+   ```bash
+   python3 -m venv venv
+
+3. Ative o ambiente virtual:
+   ```bash
+   source venv/bin/activate
+
+4. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+
+5. Execute o servidor de desenvolvimento:
+   ```bash
+   uvicorn main:app --reload
+
