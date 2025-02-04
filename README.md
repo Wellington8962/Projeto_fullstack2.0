@@ -44,20 +44,66 @@ Certifique-se de ter os seguintes itens instalados:
 1. Entre no diretório do backend:
    ```bash
    cd backend
+   ```
 
 2. Crie um ambiente virtual:
    ```bash
    python3 -m venv venv
+   # ou, se preferir:
+   virtualenv venv
+   ```
 
 3. Ative o ambiente virtual:
-   ```bash
-   source venv/bin/activate
+   - **MacOS & Linux**:
+     ```bash
+     source venv/bin/activate
+     ```
+   - **Windows**:
+     ```bash
+     venv\Scripts\activate
+     ```
 
 4. Instale as dependências:
    ```bash
    pip install -r requirements.txt
+   ```
 
 5. Execute o servidor de desenvolvimento:
    ```bash
    uvicorn main:app --reload
+   ```
 
+O backend estará disponível em [http://localhost:8000](http://localhost:8000).
+
+---
+
+### Frontend
+
+#### Configuração Local no Frontend
+
+1. Navegue até o diretório do projeto onde deseja criar o frontend:
+   ```bash
+   cd /caminho/do/projeto
+   ```
+
+2. Crie o projeto React na pasta `frontend`:
+   ```bash
+   npx create-react-app frontend
+   ```
+
+3. Entre no diretório do frontend:
+   ```bash
+   cd frontend
+   ```
+
+4. Instale dependências adicionais (como o Axios, se necessário):
+   ```bash
+   npm install axios
+   ```
+
+5. Execute o servidor de desenvolvimento:
+   ```bash
+   npm start
+   ```
+
+O frontend estará disponível em [http://localhost:3000](http://localhost:3000).
